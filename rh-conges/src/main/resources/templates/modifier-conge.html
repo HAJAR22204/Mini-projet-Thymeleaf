@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Modifier Dossier</title></head>
+<body>
+<h1>Modifier le Dossier de Congé</h1>
+
+<form action="#" th:action="@{/dossiers/modifier/{id}(id=${demandeConge.id})}"
+      th:object="${demandeConge}" method="post">
+
+  <label>Agent</label><br/>
+  <select th:field="*{employe}">
+    <option th:each="a : ${agents}" th:value="${a.id}" th:text="${a.nom}"></option>
+  </select>
+  <br/><br/>
+
+  <label>Type de Congé</label><br/>
+  <select th:field="*{typeConge}">
+    <option th:each="t : ${catalogue}" th:value="${t.id}" th:text="${t.libelle}"></option>
+  </select>
+  <br/><br/>
+
+  <label>Date de début</label><br/>
+  <input type="date" th:field="*{dateDebut}"/>
+  <br/><br/>
+
+  <label>Date de fin</label><br/>
+  <input type="date" th:field="*{dateFin}"/>
+  <br/><br/>
+
+  <label>Motif</label><br/>
+  <textarea th:field="*{motif}" rows="3" cols="40"></textarea>
+  <br/><br/>
+
+  <label>Statut</label><br/>
+  <select th:field="*{statut}">
+    <option value="SOUMIS">Soumis</option>
+    <option value="VALIDE">Validé</option>
+    <option value="REJETE">Rejeté</option>
+  </select>
+  <br/><br/>
+
+  <input type="submit" value="Enregistrer les modifications"/>
+  <a href="/dossiers">Annuler</a>
+</form>
+</body>
+</html>

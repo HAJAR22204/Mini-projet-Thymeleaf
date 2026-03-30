@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Suivi des Congés</title></head>
+<body>
+<h1>Système de Gestion des Congés</h1>
+
+<nav>
+    <a href="/dossiers">Dossiers</a> |
+    <a href="/personnel">Personnel</a> |
+    <a href="/catalogue">Types de Congé</a> |
+    <a href="/statistiques">Statistiques</a>
+</nav>
+
+<h2>Recherche et Filtrage</h2>
+<form method="get" action="/dossiers">
+    Statut :
+    <select name="statut">
+        <option value="">-- Tous --</option>
+        <option value="SOUMIS"  th:selected="${statutActif == 'SOUMIS'}">Soumis</option>
+        <option value="VALIDE"  th:selected="${statutActif == 'VALIDE'}">Validé</option>
+        <option value="REJETE"  th:selected="${statutActif == 'REJETE'}">Rejeté</option>
+    </select>
+
+    Service :
+    <input type="text" name="service" th:value="${serviceActif}" placeholder="Ex: Informatique"/>
+
+    Type :
+    <select name="typeId">
+        <option value="">-- Tous --</option>
+        <option th:each="t : ${catalogue}" th:value="${t.id}" th:text="${t.libelle}"
+                th:selected="${typeActif == t.id}"></option>
+    </select>
+
+    <button type="submit">Rechercher</button>
+    <a href="/dossiers">Réinitialiser</a>
+</form>
+
+<h2>Dossiers de Congé</h2>
+<div th:switch="${dossiers}">
+    <p th:case="null">Aucun dossier enregistré.</p>
+    <div th:case="*">
+        <table border="1" cellpadding="8">
+            <thead>
+            <tr>
+                <th>Agent</th><th>Service</th><th>Type</th>
+                <th>Début</th><th>Fin</th><th>Durée (j)</th>
+                <th>Motif</th><th>Statut</th><th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="d : ${dossiers}">
+                <td th:text="${d.employe.nom}"></td>
+                <td th:text="${d.employe.departement}"></td>
+                <td th:text="${d.typeConge.libelle}"></td>
+                <td th:text="${d.dateDebut}"></td>
+                <td th:text="${d.dateFin}"></td>
+                <td th:text="${d.nombreJours}"></td>
+                <td th:text="${d.motif}"></td>
+                <td th:text="${d.statut}"></td>
+                <td>
+                    <a th:href="@{/dossiers/modifier/{id}(id=${d.id})}">Modifier</a> |
+                    <a th:href="@{/dossiers/supprimer/{id}(id=${d.id})}"
+                       onclick="return confirm('Confirmer la suppression ?')">Supprimer</a>
+                    <span th:if="${d.statut == 'SOUMIS'}">
+              | <a th:href="@{/dossiers/valider/{id}(id=${d.id})}">✔ Valider</a>
+              | <a th:href="@{/dossiers/rejeter/{id}(id=${d.id})}">✘ Rejeter</a>
+            </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br/><a href="/dossiers/nouveau">+ Soumettre un dossier</a>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Statistiques</title></head>
+<body>
+<h1>Tableau de Bord — Statistiques des Congés</h1>
+<a href="/dossiers">← Retour</a>
+
+<h2>Vue globale</h2>
+<table border="1" cellpadding="8">
+  <tr><td>Total dossiers soumis</td><td th:text="${total}"></td></tr>
+  <tr><td>Dossiers validés</td><td th:text="${nbValides}"></td></tr>
+  <tr><td>Dossiers rejetés</td><td th:text="${nbRejetes}"></td></tr>
+  <tr><td>En cours de traitement</td><td th:text="${nbSoumis}"></td></tr>
+  <tr><td>Taux de validation</td><td th:text="${taux} + '%'"></td></tr>
+</table>
+
+<h2>Jours d'absence par service (dossiers validés)</h2>
+<table border="1" cellpadding="8">
+  <thead>
+    <tr><th>Service</th><th>Jours consommés</th></tr>
+  </thead>
+  <tbody>
+    <tr th:each="entry : ${absencesParService}">
+      <td th:text="${entry.key}"></td>
+      <td th:text="${entry.value}"></td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

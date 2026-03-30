@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Nouvel Agent</title></head>
+<body>
+<h1>Enregistrer un Nouvel Agent</h1>
+<form action="#" th:action="@{/personnel/enregistrer}" th:object="${employe}" method="post">
+
+  <label>Nom complet</label><br/>
+  <input type="text" th:field="*{nom}" placeholder="Nom et prénom"/>
+  <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" style="color:red"></span>
+  <br/><br/>
+
+  <label>Service</label><br/>
+  <input type="text" th:field="*{departement}" placeholder="Ex: Ressources Humaines"/>
+  <span th:if="${#fields.hasErrors('departement')}" th:errors="*{departement}" style="color:red"></span>
+  <br/><br/>
+
+  <label>Date d'entrée en poste</label><br/>
+  <input type="date" th:field="*{dateEmbauche}"/>
+  <span th:if="${#fields.hasErrors('dateEmbauche')}" th:errors="*{dateEmbauche}" style="color:red"></span>
+  <br/><br/>
+
+  <input type="submit" value="Enregistrer"/>
+  <a href="/personnel">Annuler</a>
+</form>
+</body>
+</html>

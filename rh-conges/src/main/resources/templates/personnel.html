@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Personnel</title></head>
+<body>
+<h1>Gestion du Personnel</h1>
+<a href="/dossiers">← Retour</a> | <a href="/personnel/nouveau">+ Ajouter un agent</a>
+
+<table border="1" cellpadding="8">
+  <thead>
+    <tr><th>Nom</th><th>Service</th><th>Date d'entrée</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    <tr th:each="a : ${agents}">
+      <td th:text="${a.nom}"></td>
+      <td th:text="${a.departement}"></td>
+      <td th:text="${a.dateEmbauche}"></td>
+      <td>
+        <a th:href="@{/personnel/modifier/{id}(id=${a.id})}">Modifier</a> |
+        <a th:href="@{/personnel/supprimer/{id}(id=${a.id})}"
+           onclick="return confirm('Supprimer cet agent ?')">Supprimer</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

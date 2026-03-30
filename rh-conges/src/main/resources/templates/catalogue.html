@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Catalogue des Congés</title></head>
+<body>
+<h1>Catalogue des Types de Congé</h1>
+<a href="/dossiers">← Retour</a> | <a href="/catalogue/nouveau">+ Ajouter un type</a>
+
+<table border="1" cellpadding="8">
+  <thead>
+    <tr><th>Intitulé</th><th>Quota (jours/an)</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    <tr th:each="t : ${catalogue}">
+      <td th:text="${t.libelle}"></td>
+      <td th:text="${t.quotaAnnuel}"></td>
+      <td>
+        <a th:href="@{/catalogue/modifier/{id}(id=${t.id})}">Modifier</a> |
+        <a th:href="@{/catalogue/supprimer/{id}(id=${t.id})}"
+           onclick="return confirm('Supprimer ce type ?')">Supprimer</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

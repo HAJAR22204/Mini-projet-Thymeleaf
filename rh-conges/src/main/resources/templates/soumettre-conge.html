@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Nouvelle Demande</title></head>
+<body>
+<h1>Soumettre une Demande de Congé</h1>
+
+<form action="#" th:action="@{/dossiers/soumettre}" th:object="${demandeConge}" method="post">
+
+  <label>Agent</label><br/>
+  <select th:field="*{employe}">
+    <option value="">-- Sélectionner un agent --</option>
+    <option th:each="a : ${agents}" th:value="${a.id}" th:text="${a.nom}"></option>
+  </select>
+  <span th:if="${#fields.hasErrors('employe')}" th:errors="*{employe}" style="color:red"></span>
+  <br/><br/>
+
+  <label>Type de Congé</label><br/>
+  <select th:field="*{typeConge}">
+    <option value="">-- Sélectionner un type --</option>
+    <option th:each="t : ${catalogue}" th:value="${t.id}" th:text="${t.libelle}"></option>
+  </select>
+  <span th:if="${#fields.hasErrors('typeConge')}" th:errors="*{typeConge}" style="color:red"></span>
+  <br/><br/>
+
+  <label>Date de début</label><br/>
+  <input type="date" th:field="*{dateDebut}"/>
+  <span th:if="${#fields.hasErrors('dateDebut')}" th:errors="*{dateDebut}" style="color:red"></span>
+  <br/><br/>
+
+  <label>Date de fin</label><br/>
+  <input type="date" th:field="*{dateFin}"/>
+  <span th:if="${#fields.hasErrors('dateFin')}" th:errors="*{dateFin}" style="color:red"></span>
+  <br/><br/>
+
+  <label>Motif</label><br/>
+  <textarea th:field="*{motif}" rows="3" cols="40" placeholder="Préciser le motif si nécessaire"></textarea>
+  <br/><br/>
+
+  <input type="submit" value="Soumettre le dossier"/>
+  <a href="/dossiers">Annuler</a>
+</form>
+</body>
+</html>

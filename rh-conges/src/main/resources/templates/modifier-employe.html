@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Modifier Agent</title></head>
+<body>
+<h1>Modifier les Informations de l'Agent</h1>
+<form action="#" th:action="@{/personnel/modifier/{id}(id=${employe.id})}"
+      th:object="${employe}" method="post">
+
+  <label>Nom complet</label><br/>
+  <input type="text" th:field="*{nom}"/>
+  <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" style="color:red"></span>
+  <br/><br/>
+
+  <label>Service</label><br/>
+  <input type="text" th:field="*{departement}"/>
+  <span th:if="${#fields.hasErrors('departement')}" th:errors="*{departement}" style="color:red"></span>
+  <br/><br/>
+
+  <label>Date d'entrée en poste</label><br/>
+  <input type="date" th:field="*{dateEmbauche}"/>
+  <br/><br/>
+
+  <input type="submit" value="Sauvegarder"/>
+  <a href="/personnel">Annuler</a>
+</form>
+</body>
+</html>

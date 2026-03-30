@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Modifier Type</title></head>
+<body>
+<h1>Modifier le Type de Congé</h1>
+<form action="#" th:action="@{/catalogue/modifier/{id}(id=${typeConge.id})}"
+      th:object="${typeConge}" method="post">
+
+  <label>Intitulé</label><br/>
+  <input type="text" th:field="*{libelle}"/>
+  <span th:if="${#fields.hasErrors('libelle')}" th:errors="*{libelle}" style="color:red"></span>
+  <br/><br/>
+
+  <label>Quota annuel (en jours)</label><br/>
+  <input type="number" th:field="*{quotaAnnuel}" min="1"/>
+  <span th:if="${#fields.hasErrors('quotaAnnuel')}" th:errors="*{quotaAnnuel}" style="color:red"></span>
+  <br/><br/>
+
+  <input type="submit" value="Sauvegarder"/>
+  <a href="/catalogue">Annuler</a>
+</form>
+</body>
+</html>
